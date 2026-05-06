@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veille Technologique | Cloud Computing — Lucas Saka Sisi</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bangers&family=Space+Mono:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet">
+<style>
+:root {
+  --neon-blue: #5be8ff;
+  --neon-pink: #ff3a8c;
+  --neon-green: #39ff14;
+  --neon-yellow: #ffe156;
+  --dark: #080818;
+  --wall-dark: #111122;
+  --text: #e8e8f0;
+  --yellow: #ffe156;
+  --red: #e8273a;
+  --green: #39ff14;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0a0a18; }
+::-webkit-scrollbar-thumb { background: var(--neon-green); }
+
+/* ══ NAV ══ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:999;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 3rem;
+  background: rgba(8,8,24,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid rgba(57,255,20,0.15);
+}
+.nav-logo {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem; color: var(--neon-blue);
+  text-decoration: none; letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(91,232,255,0.6);
+}
+.nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+.nav-links a {
+  color: rgba(232,232,240,0.55); text-decoration: none;
+  font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--neon-blue); }
+
+.nav-btn-back {
+  font-family: 'Bangers', cursive !important;
+  font-size: 0.9rem !important; letter-spacing: 2px !important;
+  color: var(--neon-green) !important;
+  border: 2px solid var(--neon-green) !important;
+  padding: 3px 14px !important;
+  box-shadow: 0 0 10px rgba(57,255,20,0.2);
+  transition: all 0.2s !important;
+  text-decoration: none;
+}
+.nav-btn-back:hover {
+  background: var(--neon-green) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px rgba(57,255,20,0.5) !important;
+}
+
+/* ══ HERO BANNER ══ */
+.veille-hero {
+  position: relative;
+  width: 100%; min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+/* Animated grid background */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(57,255,20,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,255,20,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+
+/* Circuit noise overlay */
+.hero-noise {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(57,255,20,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 30%, rgba(91,232,255,0.08) 0%, transparent 50%),
+    rgba(8,8,24,0.75);
+}
+
+/* Floating circuit nodes */
+.circuit-node {
+  position: absolute; z-index: 2;
+  width: 8px; height: 8px;
+  border: 2px solid var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--neon-green);
+  animation: pulse-node 3s ease-in-out infinite;
+}
+.circuit-node:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
+.circuit-node:nth-child(2) { top: 70%; left: 8%; animation-delay: 1s; }
+.circuit-node:nth-child(3) { top: 30%; right: 5%; animation-delay: 0.5s; }
+.circuit-node:nth-child(4) { top: 80%; right: 10%; animation-delay: 2s; }
+.circuit-node:nth-child(5) { top: 50%; left: 48%; animation-delay: 1.5s; width:12px; height:12px; border-color: var(--neon-blue); box-shadow: 0 0 16px var(--neon-blue); }
+@keyframes pulse-node {
+  0%,100% { opacity:0.4; transform: scale(1); }
+  50% { opacity:1; transform: scale(1.4); }
+}
+
+/* ══ LAYOUT ══ */
+.veille-content {
+  position: relative; z-index: 5;
+  max-width: 1200px; margin: 0 auto; padding: 4rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: start;
+  width: 100%;
+}
+
+/* ══ LEFT COLUMN ══ */
+.veille-left {}
+
+.veille-tag {
+  font-size: 0.65rem; letter-spacing: 6px; text-transform: uppercase;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(57,255,20,0.6);
+  display: block; margin-bottom: 1rem;
+}
+
+.veille-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow:
+    4px 4px 0 #000,
+    -2px -2px 0 #111,
+    0 0 40px rgba(57,255,20,0.3);
+  margin-bottom: 0.4rem;
+}
+
+/* Neon underline */
+.title-underline {
+  height: 3px;
+  width: 180px;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), transparent);
+  margin-bottom: 2.5rem;
+  box-shadow: 0 0 10px rgba(57,255,20,0.4);
+}
+
+.veille-desc {
+  font-size: 0.82rem;
+  line-height: 2;
+  color: rgba(232,232,240,0.75);
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+.veille-desc strong { color: var(--neon-green); font-weight: 700; }
+
+/* ══ VEILLE BLOCKS ══ */
+.veille-block {
+  margin-bottom: 2rem;
+  padding: 1.2rem 1.5rem;
+  border-left: 3px solid rgba(57,255,20,0.3);
+  background: rgba(57,255,20,0.03);
+}
+.block-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.1rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(57,255,20,0.4);
+  margin-bottom: 0.8rem;
+}
+.conclusion-block {
+  margin-top: 1.5rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(91,232,255,0.15);
+  background: rgba(91,232,255,0.04);
+  font-size: 0.75rem; line-height: 1.8;
+  color: rgba(232,232,240,0.6);
+  font-style: italic;
+}
+
+/* ══ TENDANCES ══ */
+.tendances-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.3rem; letter-spacing: 4px;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px rgba(255,225,86,0.5);
+  margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.tendances-title::before {
+  content: '//'; color: var(--neon-pink); font-family: 'Space Mono', monospace;
+}
+
+.tendance-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding: 0.9rem 1.2rem;
+  border-left: 3px solid transparent;
+  background: rgba(57,255,20,0.03);
+  transition: all 0.25s;
+  cursor: default;
+}
+.tendance-item:hover {
+  border-left-color: var(--neon-green);
+  background: rgba(57,255,20,0.07);
+  transform: translateX(4px);
+}
+.tendance-item:nth-child(2n) { border-left-color: rgba(91,232,255,0.3); }
+.tendance-item:nth-child(2n):hover { border-left-color: var(--neon-blue); background: rgba(91,232,255,0.07); }
+
+.t-icon {
+  font-size: 1.3rem; flex-shrink:0; margin-top: 2px;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+.t-body {}
+.t-label {
+  font-family: 'Bangers', cursive;
+  font-size: 1rem; letter-spacing: 2px;
+  color: var(--neon-blue);
+  margin-bottom: 0.2rem;
+}
+.t-desc {
+  font-size: 0.72rem; line-height: 1.7;
+  color: rgba(232,232,240,0.6);
+}
+
+/* ══ RIGHT COLUMN ══ */
+.veille-right {
+  display: flex; flex-direction: column; gap: 2rem;
+  position: sticky; top: 100px;
+}
+
+/* Video container */
+.video-wrap {
+  position: relative;
+  background: #000;
+  border: 2px solid rgba(57,255,20,0.3);
+  box-shadow:
+    0 0 30px rgba(57,255,20,0.1),
+    inset 0 0 30px rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+/* Scanline effect on video */
+.video-wrap::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 10;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.03) 0px,
+    rgba(0,0,0,0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.video-header {
+  background: linear-gradient(90deg, #001a00, #001500);
+  padding: 8px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(57,255,20,0.2);
+}
+.video-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--neon-green);
+  text-shadow: 0 0 6px var(--neon-green);
+}
+.video-dots { display: flex; gap: 5px; }
+.video-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  animation: dot-blink 2s ease-in-out infinite;
+}
+.video-dot:nth-child(1) { background: var(--red); animation-delay: 0s; }
+.video-dot:nth-child(2) { background: var(--yellow); animation-delay: 0.3s; }
+.video-dot:nth-child(3) { background: var(--neon-green); animation-delay: 0.6s; }
+@keyframes dot-blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.video-wrap iframe {
+  display: block; width: 100%; aspect-ratio: 16/9; border: none;
+}
+
+/* Info card */
+.info-card {
+  border: 1px solid rgba(91,232,255,0.15);
+  background: rgba(8,8,24,0.8);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.info-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height: 2px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+}
+.info-card-title {
+  font-family: 'Bangers', cursive;
+  font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--neon-blue); margin-bottom: 1rem;
+}
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+}
+.info-chip {
+  background: rgba(91,232,255,0.06);
+  border: 1px solid rgba(91,232,255,0.15);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.65rem; letter-spacing: 1px;
+  color: rgba(232,232,240,0.7);
+  transition: all 0.2s;
+}
+.info-chip:hover {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  background: rgba(91,232,255,0.1);
+}
+.info-chip strong { display: block; color: var(--neon-green); font-size: 0.7rem; margin-bottom: 2px; }
+
+/* ══ BACK BUTTON ══ */
+.back-section {
+  position: relative; z-index: 5;
+  padding: 3rem; text-align: center;
+  border-top: 1px solid rgba(57,255,20,0.1);
+}
+
+.btn-neon {
+  font-family: 'Bangers', cursive; font-size: 1rem; letter-spacing: 3px;
+  padding: 0.7rem 2.2rem; text-decoration: none;
+  border: 2px solid; position: relative; overflow: hidden;
+  transition: all 0.25s; display: inline-flex; align-items: center; gap: 0.5rem;
+}
+.btn-neon::before {
+  content: ''; position: absolute; inset:0;
+  transform: scaleX(0); transform-origin: left; transition: transform 0.25s; z-index:0;
+}
+.btn-neon span { position: relative; z-index:1; }
+.btn-neon:hover::before { transform: scaleX(1); }
+.btn-neon:hover { transform: translateY(-2px); }
+.btn-green { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 15px rgba(57,255,20,0.2); }
+.btn-green::before { background: var(--neon-green); }
+.btn-green:hover { color: #000; box-shadow: 0 0 30px rgba(57,255,20,0.5); }
+
+/* ══ FOOTER ══ */
+footer {
+  background: #04040e;
+  border-top: 1px solid rgba(57,255,20,0.1);
+  padding: 1.5rem; text-align: center;
+  font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(232,232,240,0.2);
+}
+
+/* ══ ANIMATIONS ══ */
+.fade-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s ease forwards; }
+.fade-in:nth-child(1) { animation-delay: 0.1s; }
+.fade-in:nth-child(2) { animation-delay: 0.25s; }
+.fade-in:nth-child(3) { animation-delay: 0.4s; }
+.fade-in:nth-child(4) { animation-delay: 0.55s; }
+.fade-in:nth-child(5) { animation-delay: 0.7s; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 768px) {
+  .veille-content { grid-template-columns: 1fr; gap: 3rem; }
+  .veille-right { position: static; }
+  nav { padding: 1rem 1.5rem; }
+  .veille-content { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index (2).html" class="nav-logo">monportfolio</a>
+  <ul class="nav-links">
+    <li><a href="index (2).html">← Accueil</a></li>
+    <li><a href="e6 (2).html" target="_blank">E5</a></li>
+    <li><a href="E7.html" target="_blank">E6</a></li>
+    <li><a href="veille.html" class="nav-btn-back">Veille</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="veille-hero">
+  <!-- Background effects -->
+  <div class="hero-grid"></div>
+  <div class="hero-noise"></div>
+  <div class="circuit-node"></div>
+  <div class="circuit-node"></div>
+  <div class="circuit-node"></div>
+  <div class="circuit-node"></div>
+  <div class="circuit-node"></div>
+
+  <div class="veille-content">
+
+    <!-- LEFT -->
+    <div class="veille-left">
+      <span class="veille-tag fade-in">// Veille Technologique</span>
+      <h1 class="veille-title fade-in">CLOUD<br>COMPUTING</h1>
+      <div class="title-underline fade-in"></div>
+
+      <!-- Qu'est-ce que la veille -->
+      <div class="veille-block fade-in">
+        <div class="block-title">Qu'est-ce que la veille technologique ?</div>
+        <p class="veille-desc">
+          La veille technologique, élément de la <strong>veille stratégique</strong>, consiste à surveiller les évolutions techniques et les innovations dans un secteur donné. Elle comprend la surveillance, la collecte, le partage et la diffusion d'informations permettant d'anticiper des changements en matière de <strong>recherche, développement, brevets, lancement de nouveaux produits</strong>, matériaux, processus et innovation de fabrication. Cela a pour but d'évaluer l'impact sur l'environnement et l'organisation.
+        </p>
+      </div>
+
+      <!-- Outils -->
+      <div class="veille-block fade-in">
+        <div class="block-title">Les principaux outils de ma veille</div>
+        <p class="veille-desc">
+          J'ai effectué ma veille technologique grâce aux newsletters tel que <strong>Feedly</strong>, un agrégateur de flux RSS. En plus des informations fournies chaque semaine/mois, j'ai quelques sites en favoris permettant de me tenir au courant des dernières actualités tel que <strong>Microsoft Azure</strong> ou encore <strong>Accenture</strong>.
+        </p>
+      </div>
+
+      <!-- Intro Cloud -->
+      <div class="veille-block fade-in">
+        <div class="block-title">Cloud Computing</div>
+        <p class="veille-desc">
+          Le <strong>Cloud Computing</strong> est un modèle de fourniture d'accès à des ressources informatiques via Internet.
+          Il permet d'utiliser des ressources (<strong>calcul, stockage, réseaux</strong>) à la demande et de façon flexible,
+          sans avoir à investir dans des infrastructures coûteuses. Le Cloud est souvent considéré comme une
+          <strong>révolution technologique</strong> car il permet aux entreprises de se concentrer sur leur cœur de métier
+          plutôt que sur la gestion de leur infrastructure informatique. Voici quelques tendances récentes :
+        </p>
+      </div>
+
+      <div class="fade-in">
+        <div class="tendances-title">TENDANCES RÉCENTES</div>
+
+        <div class="tendance-item">
+          <span class="t-icon">☁️</span>
+          <div class="t-body">
+            <div class="t-label">1. Migration des applications critiques</div>
+            <div class="t-desc">De plus en plus d'entreprises migrent leurs applications critiques vers le Cloud pour bénéficier de l'évolutivité, la flexibilité, la réduction des coûts et la disponibilité. Les fournisseurs proposent des services de migration dédiés pour faciliter ce transfert.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">🌐</span>
+          <div class="t-body">
+            <div class="t-label">2. Adoption du Multi-Cloud</div>
+            <div class="t-desc">Les entreprises utilisent plusieurs fournisseurs Cloud pour bénéficier de leurs avantages respectifs (disponibilité, sécurité, tarification) et éviter de dépendre d'un seul acteur, minimisant ainsi les risques de pannes.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">🔀</span>
+          <div class="t-body">
+            <div class="t-label">3. Essor du Cloud Hybride</div>
+            <div class="t-desc">Combinaison d'un Cloud public et privé : les données sensibles sont stockées dans un Cloud privé, tandis que les applications moins critiques sont hébergées en Cloud public pour réduire les coûts.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">⚡</span>
+          <div class="t-body">
+            <div class="t-label">4. Adoption du Serverless</div>
+            <div class="t-desc">Approche qui permet aux développeurs de se concentrer sur le code plutôt que sur l'infrastructure. Les fournisseurs Cloud proposent des services Serverless pour créer des applications sans gérer les serveurs sous-jacents.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">🔐</span>
+          <div class="t-body">
+            <div class="t-label">5. La Sécurité</div>
+            <div class="t-desc">Préoccupation majeure des entreprises Cloud. Les fournisseurs proposent des services de sécurité natifs, et les entreprises peuvent renforcer la protection de leurs données avec des outils tiers.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">🚀</span>
+          <div class="t-body">
+            <div class="t-label">6. Nouvelles fonctionnalités Cloud</div>
+            <div class="t-desc">AWS, Azure et GCP publient régulièrement de nouvelles fonctionnalités. S'abonner à leurs blogs permet de rester à jour sur les dernières évolutions utiles aux projets de développement et d'administration SI.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">💰</span>
+          <div class="t-body">
+            <div class="t-label">7. Coût du Cloud</div>
+            <div class="t-desc">Le Cloud peut être une solution rentable, mais il est essentiel de comprendre les modèles de tarification des fournisseurs et d'adopter des stratégies pour optimiser les coûts d'utilisation.</div>
+          </div>
+        </div>
+
+        <div class="tendance-item">
+          <span class="t-icon">🔧</span>
+          <div class="t-body">
+            <div class="t-label">8. DevOps & Cloud</div>
+            <div class="t-desc">DevOps combine développement et opérations. Les environnements Cloud sont au cœur des stratégies DevOps pour automatiser les déploiements et les tests logiciels.</div>
+          </div>
+        </div>
+
+        <div class="conclusion-block">
+          En résumé, le Cloud Computing est une technologie en constante évolution. Les entreprises qui adoptent le Cloud doivent être conscientes de ces tendances et des avantages et risques associés.
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="veille-right">
+      <!-- YouTube video -->
+      <div class="video-wrap fade-in">
+        <div class="video-header">
+          <span class="video-label">▶ Source vidéo · AWS France</span>
+          <div class="video-dots">
+            <div class="video-dot"></div>
+            <div class="video-dot"></div>
+            <div class="video-dot"></div>
+          </div>
+        </div>
+        <iframe
+          src="https://www.youtube.com/embed/M988_fsOSWo"
+          title="Qu'est-ce que le cloud computing ? — Amazon Web Services France"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- Info chips -->
+      <div class="info-card fade-in">
+        <div class="info-card-title">☁ Acteurs majeurs</div>
+        <div class="info-grid">
+          <div class="info-chip"><strong>AWS</strong>Amazon Web Services · Leader mondial</div>
+          <div class="info-chip"><strong>GCP</strong>Google Cloud Platform · Expertise Data/IA</div>
+          <div class="info-chip"><strong>Azure</strong>Microsoft Azure · Intégration Office 365</div>
+          <div class="info-chip"><strong>OVH</strong>OVHcloud · Acteur souverain européen</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BACK -->
+<div class="back-section">
+  <a href="index (2).html" class="btn-neon btn-green"><span>← Retour au portfolio</span></a>
+</div>
+
+<footer>© 2025 Lucas Saka Sisi · BTS SIO SISR · IRIS Paris · Veille Technologique</footer>
+
+</body>
+</html>
